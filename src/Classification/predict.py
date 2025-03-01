@@ -25,7 +25,7 @@ def predict_breed(model, img_processed, breed_name_mapping):
     prediction = model.predict(img_batch)
     predicted_class = np.argmax(prediction, axis=1)[0]
     
-    # Map to breed name (add 1 to get back to original class_id)
+    # Map to breed name
     predicted_breed = breed_name_mapping[predicted_class + 1]
 
     return predicted_breed
