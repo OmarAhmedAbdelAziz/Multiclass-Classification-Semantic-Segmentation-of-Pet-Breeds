@@ -1,0 +1,72 @@
+1. Project Overview
+
+    This project focuses on two tasks using the Oxford-IIIT Pet Dataset:
+
+    - Classification: Classify pet breeds into 37 categories using a pre-trained ResNet50 model.
+
+    - Segmentation: Perform semantic segmentation to outline pets using a modified MobileNetV2 U-Net model.
+
+
+2. Classification Model
+
+    - Uses ResNet50 as a base model with a custom classification head.
+
+    - Data augmentation is applied to improve generalization.
+
+    - Trained with sparse_categorical_crossentropy loss and Adam optimizer.
+
+3. Training Process
+
+    - Load image and annotation data.
+
+    - Preprocess images (resize, normalize, label encoding).
+
+    - Split into training, validation, and test sets.
+
+    - Train the ResNet50 model using an augmented dataset.
+
+    - Save the trained model and best checkpoints.
+
+4. Model File
+
+    Checkpoints/best_checkpoints.h5
+
+
+4. Segmentation Model
+
+    - Uses MobileNetV2 as an encoder with upsampling and skip connections for segmentation.
+
+    - Outputs a 3-class segmentation mask (pet, background, border).
+
+    - Trained with categorical_crossentropy loss and Adam optimizer.
+
+5. Training Process
+
+    - Load image and segmentation trimaps.
+
+    - Preprocess images and masks (resize, normalize, one-hot encode labels).
+
+    - Split into training, validation, and test sets.
+
+    - Train the MobileNetV2-based segmentation model.
+
+    - Save the trained model and best checkpoints.
+
+6. Model File:
+
+    Checkpoints/best_segmentation_model.h5
+
+5. Main Features
+
+    - Uses transfer learning for efficient training.
+
+    - Implements data augmentation for better model generalization.
+
+    - Includes early stopping & model checkpointing for optimal performance.
+
+    - Supports semantic segmentation for pet outlines.
+
+7. Conclusion
+
+The trained models can classify pet breeds and segment pet outlines efficiently.
+
