@@ -1,0 +1,9 @@
+The folder contatins:
+
+test_data_loader.py, test_preprocess.py, test_predict.py
+
+
+Thess test files contain unit tests for the scripts in the Classification folder. It checks that the data is correctly loaded, split into training, validation, and test sets, 
+images and labels are correctly paired,  ensures that the images undergo the correct transformations, such as resizing, normalization, and augmentation and ensures that
+the trained model can make predictions on new images and that the predicted class is valid.
+
