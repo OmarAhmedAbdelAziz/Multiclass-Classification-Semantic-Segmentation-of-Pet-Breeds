@@ -1,0 +1,108 @@
+# Pet Breed Classification Using ResNet50
+
+## Dataset Information
+- **Dataset**: Oxford-IIIT Pet Dataset
+- **Contents**: Images of 37 different pet breeds (cats and dogs)
+- **Structure**:
+  - `images/`: Contains pet images in JPG format
+  - `annotations/`: Contains metadata and class information
+
+## Code Documentation
+
+### Libraries and Dependencies
+The code uses several Python libraries for data manipulation, image processing, visualization, and deep learning:
+- **Core Libraries**: NumPy, Pandas, Matplotlib, Seaborn
+- **Image Processing**: PIL, OpenCV
+- **Machine Learning**: Scikit-learn
+- **Deep Learning**: TensorFlow/Keras with ResNet50 pretrained model
+
+### Data Loading and Preprocessing
+
+#### Annotation File Reading
+The function `read_annotation_file()` parses annotation files containing image metadata. It extracts:
+- Image name
+- Class ID
+- Species information (cat/dog)
+- Breed ID
+
+#### Dataset Preparation
+The code modifies the original dataset split:
+- Randomly selects 1,000 samples for testing
+- Moves remaining test samples to the training set
+
+#### Image Preprocessing
+The `preprocessing_images()` function prepares images for the neural network:
+- Loads images from file paths
+- Converts from BGR to RGB color space
+- Resizes to 224×224 pixels (ResNet50 input size)
+- Applies ResNet50 preprocessing
+- Associates images with their corresponding class labels
+
+### Data Visualization
+
+The code includes multiple visualization functions:
+- Displays the distribution of images per breed
+- Shows the number of images per species (cats vs dogs)
+- Presents sample images from the dataset
+- Visualizes preprocessed images with their class labels
+
+### Model Architecture
+
+The classification model uses transfer learning with ResNet50:
+1. **Base Model**: Pre-trained ResNet50 with weights from ImageNet
+2. **Feature Extraction**: Global Average Pooling of the base model features
+3. **Classification Head**:
+   - Dense layer (1024 units, ReLU activation)
+   - Dropout (50%)
+   - Dense layer (512 units, ReLU activation) 
+   - Dropout (30%)
+   - Output layer (37 units, softmax activation)
+
+### Training 
+
+#### Data Augmentation
+Applies transformations to increase training data diversity:
+- Rotation
+- Width/height shifts
+- Horizontal flipping
+- Zooming
+
+#### Model Compilation
+- **Optimizer**: Adam with learning rate of 0.0001
+- **Loss Function**: Sparse Categorical Crossentropy
+- **Metrics**: Accuracy
+
+#### Training Callbacks
+- **ModelCheckpoint**: Saves best model based on validation accuracy
+- **EarlyStopping**: Prevents overfitting by monitoring validation loss
+
+### Model Evaluation
+
+## Classification Performance Analysis
+
+- **Perfect Performers**: 
+  - Class 17: Perfect precision (1.00), recall (1.00), and F1-score (1.00)
+  - Class 25: Perfect precision (1.00), recall (1.00), and F1-score (1.00)
+
+- **Strong Performers** (F1-score ≥ 0.95):
+  - Classes 14, 15, 16, 18, 19, 22, 24, 28, 29, 30, 31, 33, 35, 36
+  - These breeds consistently show high precision and recall values
+
+- **Moderate Performers** (0.85 ≤ F1-score < 0.95):
+  - Classes 1, 3, 4, 5, 8, 10, 11, 12, 13, 21, 23, 32
+  - Generally good performance with room for improvement
+
+- **Weak Performers** (F1-score < 0.85):
+  - Classes 0, 2, 6, 9, 20, 26, 27, 34
+  - These breeds show imbalances between precision and recall
+
+- **Challenging Breeds**:
+   - Class 26: Lowest F1-score (0.74) with balanced but low precision (0.76) and recall (0.72)
+   - Class 34: Low F1-score (0.73) with both precision and recall around 0.72-0.75
+   - These may be breeds with features similar to other breeds or with high intra-class variation
+
+- **Overall Performance**:
+   - Accuracy: 91% across all 1,270 validation samples
+   - Macro-average: 91% for precision, recall, and F1-score (treating all classes equally)
+   - Weighted-average: 91% (weighted by class frequency)
+   - The equality of macro and weighted averages suggests balanced class distribution
