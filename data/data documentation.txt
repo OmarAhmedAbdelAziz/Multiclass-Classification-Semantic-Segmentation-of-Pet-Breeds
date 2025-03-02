@@ -1,0 +1,53 @@
+The Oxford-IIIT Pet Dataset is organized into two main folders:
+
+Images Folder:
+
+    Contains 7,393 images of cats and dogs.
+
+    Image filenames follow a pattern:
+    Uppercase first letter → Cat (e.g., Abyssinian_100.jpg).
+    Lowercase first letter → Dog (e.g., chihuahua_30.jpg).
+    
+
+Annotations Folder:
+
+
+
+The Annotations folder contains three files and two folders.
+
+    Files:
+
+    1.trainval.txt
+        Lists the training and validation image filenames.
+        Each line contains:
+        image_name, class_id, species, breed_id,
+        image_name: Name of the image file.
+        class_id: 1-37, representing different pet breeds.
+        species: 1 = Cat, 2 = Dog.
+        breed_id: Cats (1-25), Dogs (1-12).
+        
+    2.test.txt
+    Similar to trainval.txt but contains filenames for testing.
+
+
+    3.list.txt
+    Provides breed names and their corresponding class IDs.
+    Helps in mapping numerical labels to breed names.
+
+   Folders:
+
+    1.xmls
+
+    Contains XML annotation files for each image.
+    Each file includes details like bounding box coordinates and pet breed labels.
+    Used for object detection tasks.
+
+    2.trimaps
+
+    Contains segmentation masks for images.
+    Each mask is a grayscale image where:
+    1: Foreground.
+    2: Background.
+    3: Pet boundary.
+    Helps in semantic segmentation tasks.
+    
