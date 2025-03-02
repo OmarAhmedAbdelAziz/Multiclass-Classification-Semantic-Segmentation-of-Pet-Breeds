@@ -1,0 +1,27 @@
+src folder contains two folders:
+
+Classification Folder
+    1. data_loader.py
+    This script is responsible for loading and preprocessing the images for the classification task. It reads the dataset, processes the image data, and splits it into training, validation, and test sets.
+
+    2. preprocess.py
+    The preprocessing script handles any transformations or augmentation needed for the classification images. This includes resizing, normalization, and data augmentation techniques like rotation, flipping, etc., to enhance the model's performance.
+
+    3. train.py
+    This script defines the model architecture and training loop. It utilizes a pretrained ResNet50 model, fine-tunes it for the pet breed classification, and handles model training, loss calculation, and performance evaluation on the validation set.
+
+    4. predict.py
+    The prediction script loads the trained classification model and uses it to predict the breed of new images. It handles the inference process and outputs the predicted class and breed for input images.
+
+Segmentation Folder
+    1. data_loader.py
+    This script is responsible for loading and processing the images and their corresponding annotations for the segmentation task. It reads both the images and segmentation masks, preparing them for training and validation.
+
+    2. preprocess.py
+    The preprocessing script for segmentation handles operations like resizing, normalization, and any other transformations needed for both images and segmentation masks. It ensures the data is ready for the segmentation model.
+
+    3. train.py
+    The training script for segmentation defines the model architecture and the training loop. It uses MobileNetV2, and trains the model on the dataset, calculating loss, accuracy, and other metrics.
+
+    4. predict.py
+    The predict script for segmentation handles the inference process. It loads the trained segmentation model and uses it to predict the segmentation mask (outlines of pets) for new input images.
