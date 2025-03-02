@@ -45,3 +45,5 @@ The goal of this project is to develop a machine learning model that classify pe
 7. requirements.txt
 
     Lists the required Python libraries and dependencies to run the project.
+
+![](image.png)
