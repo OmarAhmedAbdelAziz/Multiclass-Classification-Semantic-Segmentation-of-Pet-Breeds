@@ -103,6 +103,6 @@ Applies transformations to increase training data diversity:
 
 - **Overall Performance**:
    - Accuracy: 91% across all 1,270 validation samples
-   - Macro-average: 91% for precision, recall, and F1-score (treating all classes equally)
-   - Weighted-average: 91% (weighted by class frequency)
-   - The equality of macro and weighted averages suggests balanced class distribution
+   - Macro-average: 91% for precision, recall, and F1-score 
+   - Weighted-average: 91% 
+
