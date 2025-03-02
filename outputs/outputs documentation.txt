@@ -1,0 +1,29 @@
+The outputs folder contains the visualizations and performance metrics of the trained models for both Classification and Segmentation tasks.
+
+It has two folders:
+
+1. Classification
+    This folder contains various evaluation results for the trained classification model.
+
+    Files:
+    - Training & Validation Accuracy and Loss.png
+        A graph showing how the accuracy and loss changed during training and validation across epochs.
+    - Validation Set Predictions.png
+        Sample predictions made on the validation set, showing actual and predicted labels.
+    - Confusion Matrix of Validation Set.png
+        A confusion matrix that evaluates classification performance on the validation set.
+    - Test Set Predictions.png
+        Sample predictions made on the test set with corresponding actual labels.
+    - Confusion Matrix of Test Set.png
+        A confusion matrix representing classification performance on the test set.
+    - Misclassified Test Set Predictions.png
+        Examples of incorrectly classified images from the test set for error analysis.
+
+2. Segmentation
+This folder contains results and evaluation metrics for the trained segmentation model.
+
+    Files:
+    - Loss, IoU, Dice Coefficient.png
+         A graph showing the loss curve and segmentation performance metrics such as IoU (Intersection over Union) and Dice Coefficient.
+    - Segmentation Predictions.png
+         Visualization of segmentation outputs comparing model predictions with ground truth masks.
