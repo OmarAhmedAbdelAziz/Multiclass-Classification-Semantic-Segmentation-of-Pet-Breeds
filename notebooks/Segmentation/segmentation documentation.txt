@@ -1,0 +1,111 @@
+# Pet Image Segmentation Using MobileNetV2-UNet
+
+## Dataset Information
+- **Dataset**: Oxford-IIIT Pet Dataset
+- **Contents**: Pet images and corresponding segmentation masks (trimaps)
+- **Structure**:
+  - `images/`: Contains pet images in JPG format
+  - `annotations/trimaps/`: Contains segmentation masks in PNG format
+
+## Code Documentation
+
+### Libraries and Dependencies
+The code uses several Python libraries for data manipulation, image processing, visualization, and deep learning:
+- **Core Libraries**: NumPy, Matplotlib
+- **File Operations**: OS, Glob
+- **Image Processing**: OpenCV (cv2)
+- **Machine Learning**: Scikit-learn
+- **Deep Learning**: TensorFlow/Keras with MobileNetV2 pretrained model
+
+### Data Loading and Exploration
+
+#### Dataset Loading
+- Image and trimap paths are obtained using `glob` function
+- Sorted lists ensure correspondence between images and their segmentation masks
+- Initial validation ensures filenames match between images and trimaps
+
+#### Data Visualization
+The `visualize_sample()` function displays:
+- Original RGB pet images
+- Corresponding segmentation masks (trimaps) with distinct regions
+
+### Data Preprocessing
+
+#### Image and Mask Processing
+The preprocessing pipeline includes:
+- Resizing all images to 224×224 pixels
+- Converting RGB images to float32 and normalizing to [0,1] range
+- Resizing segmentation masks using nearest-neighbor interpolation to preserve label values
+- Adjusting trimap values to zero-based indexing
+- Converting segmentation masks to one-hot encoded format with 3 classes
+
+#### Dataset Splitting
+The dataset is divided into:
+- Training set (70% of data)
+- Validation set (20% of data)
+- Test set (10% of data)
+
+### Custom Metrics
+
+#### IoU Metric (Intersection over Union)
+- Calculates IoU separately for each segmentation class
+- Returns mean IoU across all three classes
+- Handles edge cases with epsilon terms to prevent division by zero
+
+#### Dice Coefficient
+- Measures overlap between predicted and ground truth segmentation
+- Calculated separately for each class and averaged
+- Formula: 2 * intersection / (sum of both sets)
+
+### Model Architecture
+
+The segmentation model uses an encoder-decoder architecture (U-Net) with MobileNetV2 backbone:
+
+#### Encoder (Feature Extraction)
+- **Base Model**: Pre-trained MobileNetV2 with ImageNet weights
+- **Skip Connections**: Features extracted from five intermediate layers:
+  - block_1_expand_relu (112×112)
+  - block_3_expand_relu (56×56)
+  - block_6_expand_relu (28×28)
+  - block_13_expand_relu (14×14)
+  - block_16_project (7×7)
+
+#### Decoder (Upsampling)
+- **Design**: Sequential upsampling blocks with skip connections
+- **Each Block**:
+  - 2× upsampling
+  - Concatenation with skip connection features
+  - Two Conv2D layers with batch normalization and ReLU activation
+- **Final Layers**:
+  - Additional upsampling to match input resolution
+  - Final Conv2D layer with softmax activation for 3-class segmentation
+
+### Training Configuration
+
+#### Model Compilation
+- **Optimizer**: Adam with learning rate of 0.0001
+- **Loss Function**: Categorical Cross-Entropy
+- **Metrics**: Accuracy, IoU, Dice Coefficient
+
+#### Training Callbacks
+- **ModelCheckpoint**: Saves best model based on validation loss
+- **EarlyStopping**: Prevents overfitting by monitoring validation loss with patience of 10 epochs
+
+#### Training Parameters
+- **Batch Size**: 8
+- **Maximum Epochs**: 20
+
+### Performance Evaluation
+
+#### Training History Visualization
+The code plots training progress for:
+- Loss values (training and validation)
+- IoU metric (training and validation)
+- Dice coefficient (training and validation)
+
+#### Model Evaluation
+- Final metrics are calculated on the validation set
+- Visual assessment compares:
+  - Original input images
+  - Ground truth segmentation masks
+  - Predicted segmentation masks
